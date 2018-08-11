@@ -69,9 +69,10 @@ public class PluginPicture {
 		this.errs.put(name, 1);
 	}
 
-	public void startCheck() {
+	public void startCheckPictures() {
 		for (Picture pic : this.pics.values()) {
-			Main.getPictureManager().Operater(pic.getName(), pic.getPluginName(), false);
+			if(pic.isExists()) {System.out.println(pic.getName()+".skiped");continue;}
+			Main.getPictureManager().setOperater(pic.getName(), pic.getPluginName(), false);
 		}
 	}
 

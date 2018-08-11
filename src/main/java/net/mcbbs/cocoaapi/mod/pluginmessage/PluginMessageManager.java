@@ -13,6 +13,7 @@ import io.netty.buffer.Unpooled;
 import net.mcbbs.cocoaapi.mod.pluginmessage.event.PackageListener;
 import net.mcbbs.cocoaapi.mod.pluginmessage.event.PackageReceiveEvent;
 import net.mcbbs.cocoaapi.mod.pluginmessage.event.PackageSendEvent;
+import net.mcbbs.cocoaapi.mod.pluginmessage.packages.InOpenPictureChooser;
 import net.mcbbs.cocoaapi.mod.pluginmessage.packages.InPictureUpdate;
 import net.mcbbs.cocoaapi.mod.pluginmessage.packages.InPictureUpdateSent;
 import net.mcbbs.cocoaapi.mod.pluginmessage.packages.InSinglePictureUpdate;
@@ -94,6 +95,7 @@ public class PluginMessageManager {
 		this.registerPackage(2, InPictureUpdate.class);
 		this.registerPackage(3, InSinglePictureUpdate.class);
 		this.registerPackage(4, InPictureUpdateSent.class);
+		this.registerPackage(5, InOpenPictureChooser.class);
 	}
 
 }

@@ -43,23 +43,28 @@ public class PictureOperater implements Callable<PictureInfo> {
 			return new PictureInfo(null, null, -1, -1, this.name);
 		}
 		this.md5 = MD5Tool.md5(this.bytes);
-
-		this.loadSize();
+		this.file = Picture.getPictureFile(this.name.pluginName, md5);
+		if (!this.loadSize()) {
+			return new PictureInfo(null, null, -1, -1, this.name);
+		}
 		if (!file.exists()) {
 			this.saveBytes();
-		} else if (download)
+		} else if (download) {
 			this.saveBytes();
+		}
 		return this.getInfo();
 	}
 
 	private PictureInfo getInfo() {
 		PictureInfo info = new PictureInfo(this.url, this.md5, this.width, this.height, name);
-		;
 		info.force = this.download;
 		return info;
 	}
 
 	private boolean loadBytes() {
+		if (download) {
+			return loadBytesFromNet();
+		}
 		if (this.file.exists()) {
 			return loadBytesFromFile();
 		} else {
@@ -99,22 +104,26 @@ public class PictureOperater implements Callable<PictureInfo> {
 		}
 	}
 
-	private void loadSize() {
+	private boolean loadSize() {
 		BufferedImage img;
 		try {
 			img = ImageIO.read(new ByteArrayInputStream(this.bytes));
 			this.width = img.getWidth();
 			this.height = img.getHeight();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
+			return false;
 		}
+		return true;
 	}
 
 	private void saveBytes() {
+		System.out.println(this.file);
 		this.createfile();
 		try (BufferedOutputStream buff = new BufferedOutputStream(new FileOutputStream(this.file))) {
-			buff.write(this.bytes);
+			buff.write(this.bytes, 0, this.bytes.length);
 			buff.flush();
+			buff.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -124,7 +133,6 @@ public class PictureOperater implements Callable<PictureInfo> {
 
 	private void createfile() {
 		if (this.file.exists()) {
-			this.file.delete();
 		}
 		File parent = this.file.getParentFile();
 		if (!parent.exists()) {

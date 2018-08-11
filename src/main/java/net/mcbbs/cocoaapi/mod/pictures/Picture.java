@@ -20,8 +20,11 @@ import net.mcbbs.cocoaapi.mod.Main;
 import net.mcbbs.cocoaapi.mod.utils.MD5Tool;
 
 public class Picture {
-	private static final File PARENTFILE = new File("CocoaUI/Pictures");
-
+	
+	public static final File PARENTFILE = new File("CocoaUI/Pictures");
+	public static File getPictureFile(String pluginName,String md5) {
+		return new File(Picture.PARENTFILE + "/" + pluginName + "/" + md5);
+	}
 	private String url;
 	private String md5;
 
@@ -31,7 +34,7 @@ public class Picture {
 	private int height;
 	private boolean loaded;
 	private String extension;
-	private boolean updateURLing;
+	private boolean updateURLing = false;
 
 	public Picture(String url, String pluginName, String name, String md5) {
 		this.url = url;
@@ -51,6 +54,10 @@ public class Picture {
 
 	private void loadExtension() {
 		this.extension = this.url.substring(this.url.length() - 3, this.url.length());
+	}
+
+	public String getExtension() {
+		return this.extension;
 	}
 
 	public String getUrl() {
@@ -78,13 +85,14 @@ public class Picture {
 	}
 
 	public File getPictureFile() {
-		return new File(Picture.PARENTFILE + "/" + this.pluginName + "/" + this.name + "." + this.extension);
+		return Picture.getPictureFile(pluginName, md5);
 	}
 
 	public void setUrl(String url) {
 		this.url = url;
-		this.updateURLing=true;
-		Main.getPictureManager().Operater(name, pluginName, true);
+		this.loadExtension();
+		this.updateURLing = true;
+		this.forceDownload();
 	}
 
 	public void remove() {
@@ -94,26 +102,32 @@ public class Picture {
 	public boolean isLoaded() {
 		return this.loaded;
 	}
-
+	public boolean isExists() {
+		return this.getPictureFile().exists();
+	}
 	public void setPictureInfo(PictureInfo info) {
 		this.width = info.width;
 		this.height = info.height;
 		if (updateURLing) {
-
 			this.md5 = info.md5;
+			this.updateURLing = false;
 			return;
 		}
 
 		if (this.width == -1) {
 			Main.getPictureManager().getPluginPicture(this.pluginName).addErr(name);
+			return;
 		}
 		if (!this.md5.equalsIgnoreCase(info.md5)) {
 			this.forceDownload();
+			this.updateURLing = true;
+		} else {
+			this.md5 = info.md5;
 		}
 	}
 
 	public void forceDownload() {
-		Main.getPictureManager().Operater(this.name, this.pluginName, true);
+		Main.getPictureManager().setOperater(this.name, this.pluginName, true);
 	}
 
 }

@@ -4,7 +4,9 @@ import java.io.File;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
+import net.mcbbs.cocoaapi.mod.Main;
 import net.mcbbs.cocoaapi.mod.others.ImageUpdateManager;
+import net.mcbbs.cocoaapi.mod.pluginmessage.packages.OutPictureChooserBack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -20,19 +22,18 @@ public class UpdateImageGUI extends GuiScreen {
 	boolean waitchoose;
 	boolean waitUpdate;
 	Future<String> future;
-	int state;
+	int state = 0;
 	String filename;
 	String url;
+	boolean sent;
 
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-
 		try {
-			
 			super.drawDefaultBackground();
 			super.drawScreen(mouseX, mouseY, partialTicks);
 			if (waitchoose) {
-			
+
 				if (future.isDone()) {
 					if (future.get().equalsIgnoreCase("cof")) {
 						this.state = 1;
@@ -44,7 +45,7 @@ public class UpdateImageGUI extends GuiScreen {
 					}
 					this.state = 3;
 					waitchoose = false;
-				
+
 					this.filename = future.get();
 					this.future = ImageUpdateManager.INSTANCE.postFile(new File(filename));
 					waitUpdate = true;
@@ -86,8 +87,13 @@ public class UpdateImageGUI extends GuiScreen {
 				super.drawString(Minecraft.getMinecraft().fontRenderer, "请调取客户端运行日志", x - 40, y - 30, 0xFFFFFF);
 				return;
 			case 5:
-				super.drawString(Minecraft.getMinecraft().fontRenderer, "上传成功", x - 20, y - 70, 0xFFFFFF);
+				super.drawString(Minecraft.getMinecraft().fontRenderer, "上传成功,数据包已经发送到服务器", x - 60, y - 70, 0xFFFFFF);
 				super.drawString(Minecraft.getMinecraft().fontRenderer, url, x - 80, y - 30, 0xFFFFFF);
+				OutPictureChooserBack bac = new OutPictureChooserBack(url);
+				if (!sent) {
+					Main.getPluginMessageManager().sendPackage(bac);
+					sent = true;
+				}
 			}
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
@@ -107,20 +113,30 @@ public class UpdateImageGUI extends GuiScreen {
 	public void initGui() {
 		int y = super.height / 2;
 		int x = super.width / 2;
-		this.buttonList.add(new GuiButton(1, x - 100, y + 50, 50, 20, "上传") {
-			@Override
-			public void mouseReleased(int mouseX, int mouseY) {
-				future = ImageUpdateManager.INSTANCE.readyChooseFile();
-				waitchoose = true;
+		if (state==0) {
+			this.buttonList.add(new GuiButton(1, x - 100, y + 50, 50, 20, "上传") {
+				@Override
+				public void mouseReleased(int mouseX, int mouseY) {
+					future = ImageUpdateManager.INSTANCE.readyChooseFile();
+					waitchoose = true;
+				}
+			});
+			this.buttonList.add(new GuiButton(1, x + 50, y + 50, 50, 20, "退出") {
+				@Override
+				public void mouseReleased(int mouseX, int mouseY) {
+					Minecraft.getMinecraft().player.closeScreen();
+				}
+			});
+		}else {
+			if(sent) {
+				this.buttonList.add(new GuiButton(1, x -100, y + 50, 100, 20, "退出") {
+					@Override
+					public void mouseReleased(int mouseX, int mouseY) {
+						Minecraft.getMinecraft().player.closeScreen();
+					}
+				});
 			}
-		});
-		this.buttonList.add(new GuiButton(1, x + 50, y + 50, 50, 20, "退出") {
-			@Override
-			public void mouseReleased(int mouseX, int mouseY) {
-				Minecraft.getMinecraft().player.closeScreen();
-			}
-		});
-
+		}
 	}
 
 }

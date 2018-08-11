@@ -112,13 +112,14 @@ public class PictureManager {
 			if (entry.getValue().isDone()) {
 				try {
 					this.updateInfo(entry.getKey(), entry.getValue().get());
-					this.finish.add(entry.getKey());
-					this.loaded++;
 				} catch (InterruptedException e) {
 					e.printStackTrace();
+
 				} catch (ExecutionException e) {
 					e.printStackTrace();
 				}
+				this.finish.add(entry.getKey());
+				this.loaded++;
 			}
 		}
 		for (PictureName pl : this.finish) {
@@ -137,7 +138,7 @@ public class PictureManager {
 		return !this.firstLoad;
 	}
 
-	public void Operater(String name, String pluginName, boolean download) {
+	public void setOperater(String name, String pluginName, boolean download) {
 		PluginPicture picma = this.getPluginPicture(pluginName);
 		Picture pic;
 		if (picma != null) {
@@ -148,18 +149,20 @@ public class PictureManager {
 		File f = pic.getPictureFile();
 		String url = pic.getUrl();
 		this.operaters.put(new PictureName(name, pluginName),
-		this.threadPool.submit(new PictureOperater(url, new PictureName(name, pluginName), f, download)));
+				this.threadPool.submit(new PictureOperater(url, new PictureName(name, pluginName), f, download)));
 
 	}
 
 	public void startCheck() {
+		System.out.println("[CocoaUI]开始检查图片");
 		isloaded = false;
 		firstLoad = true;
 		this.finish.clear();
 		this.operaters.clear();
 		this.timer = 0;
 		for (PluginPicture picture : this.pms.values()) {
-			picture.startCheck();
+			System.out.println("[CocoaUI]开始检查插件：" + picture.getpluginName());
+			picture.startCheckPictures();
 		}
 		this.checking = true;
 

@@ -14,11 +14,11 @@ public class UpdateImageFileChooser implements Callable<String> {
 		jFileChooser.setFileFilter(new pngFileFilter());
 		int i = jFileChooser.showOpenDialog(null);
 		if (i == jFileChooser.APPROVE_OPTION) {
-			String path = jFileChooser.getSelectedFile().getAbsolutePath();
-			if (!path.endsWith(".png")) {
+			String f = jFileChooser.getSelectedFile().getAbsolutePath();
+			if (!(f.endsWith(".png") || f.endsWith("jpg") || f.endsWith("gif") || f.endsWith("bmp"))) {
 				return "cof";
 			}
-			return path;
+			return f;
 
 		} else {
 			return "noc";
@@ -29,11 +29,12 @@ public class UpdateImageFileChooser implements Callable<String> {
 }
 
 class pngFileFilter extends FileFilter {
-	private static final String desc = "仅限于png图像";
+	private static final String desc = "仅限图片";
 
 	@Override
 	public boolean accept(File f) {
-		return f.getName().endsWith(".png");
+		return f.getName().endsWith(".png") || f.getName().endsWith("jpg") || f.getName().endsWith("gif")
+				|| f.getName().endsWith("bmp");
 	}
 
 	@Override
