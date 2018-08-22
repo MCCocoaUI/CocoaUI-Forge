@@ -20,7 +20,7 @@ import net.mcbbs.cocoaapi.mod.pluginmessage.packages.InSinglePictureUpdate;
 import net.mcbbs.cocoaapi.mod.pluginmessage.packages.InVerfiyPackage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.network.play.client.CPacketCustomPayload;
+import net.minecraft.network.play.client.C17PacketCustomPayload;
 
 public class PluginMessageManager {
 	private Map<Integer, Class<? extends AbstractInPackage>> classes = Maps.newHashMap();
@@ -49,8 +49,8 @@ public class PluginMessageManager {
 			return;
 		}	
 		PacketBuffer packetBuffer = new PacketBuffer(Unpooled.copiedBuffer(out.getBytes()));
-		CPacketCustomPayload packet = new CPacketCustomPayload("CocoaUI", packetBuffer);
-		Minecraft.getMinecraft().getConnection().sendPacket(packet);
+		C17PacketCustomPayload packet = new C17PacketCustomPayload("CocoaUI", packetBuffer);
+		Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(packet);
 		
 	}
 

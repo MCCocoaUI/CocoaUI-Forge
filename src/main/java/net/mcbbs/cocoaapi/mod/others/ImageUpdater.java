@@ -15,8 +15,6 @@ import java.util.concurrent.Callable;
 
 import com.google.gson.Gson;
 
-import scala.tools.nsc.interactive.CompilerControl.Member;
-
 public class ImageUpdater implements Callable<String> {
 	private static String BOUNDARY = "----WebKitFormBoundarypAIqI1RWBfPWiOKq";
 	private static String WITHPERFIX = "------WebKitFormBoundarypAIqI1RWBfPWiOKq";

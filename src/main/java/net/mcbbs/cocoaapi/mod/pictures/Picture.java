@@ -1,23 +1,9 @@
 package net.mcbbs.cocoaapi.mod.pictures;
 
-import java.awt.image.BufferedImage;
-import java.io.DataInputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.Map;
 
-import javax.imageio.ImageIO;
-
 import net.mcbbs.cocoaapi.mod.Main;
-import net.mcbbs.cocoaapi.mod.utils.MD5Tool;
 
 public class Picture {
 	

@@ -1,10 +1,6 @@
 package net.mcbbs.cocoaapi.mod.listener;
 
-import java.io.File;
-import java.io.IOException;
-
 import net.mcbbs.cocoaapi.mod.Main;
-import net.mcbbs.cocoaapi.mod.others.ImageUpdateManager;
 import net.mcbbs.cocoaapi.mod.pictures.PluginPicture;
 import net.mcbbs.cocoaapi.mod.pluginmessage.event.PackageListener;
 import net.mcbbs.cocoaapi.mod.pluginmessage.event.PackageReceiveEvent;
@@ -40,7 +36,7 @@ public class PluginMessageListener extends PackageListener {
 			Main.getPictureManager().startCheck();
 			return;
 		case 5:
-			EntityPlayer player = Minecraft.getMinecraft().player;
+			EntityPlayer player = Minecraft.getMinecraft().thePlayer;
 			Minecraft.getMinecraft().displayGuiScreen(new UpdateImageGUI());
 			return;
 		}
