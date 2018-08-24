@@ -68,26 +68,26 @@ public class UpdateImageGUI extends GuiScreen {
 			int x = super.width / 2;
 			switch (state) {
 			case 0:
-				super.drawString(Minecraft.getMinecraft().fontRenderer, "ÇëÑ¡ÔñÉÏ´«ÄúµÄÍ¼Æ¬", x - 40, y - 70, 0xFFFFFF);
+				super.drawString(Minecraft.getMinecraft().fontRenderer, "è¯·é€‰æ‹©ä¸Šä¼ æ‚¨çš„å›¾ç‰‡", x - 40, y - 70, 0xFFFFFF);
 				return;
 			case 1:
-				super.drawString(Minecraft.getMinecraft().fontRenderer, "Í¼Æ¬Ö»ÄÜÊÇPNG£¬ÇëÖØÊÔ", x - 50, y - 30, 0xFFFFFF);
-				super.drawString(Minecraft.getMinecraft().fontRenderer, "ÇëÑ¡ÔñÉÏ´«ÄúµÄÍ¼Æ¬", x - 40, y - 70, 0xFFFFFF);
+				super.drawString(Minecraft.getMinecraft().fontRenderer, "å›¾ç‰‡åªèƒ½æ˜¯PNGï¼Œè¯·é‡è¯•", x - 50, y - 30, 0xFFFFFF);
+				super.drawString(Minecraft.getMinecraft().fontRenderer, "è¯·é€‰æ‹©ä¸Šä¼ æ‚¨çš„å›¾ç‰‡", x - 40, y - 70, 0xFFFFFF);
 				return;
 			case 2:
-				super.drawString(Minecraft.getMinecraft().fontRenderer, "Äú¹Ø±ÕÁË´°¿Ú£¬ÇëÖØÊÔ", x - 40, y - 30, 0xFFFFFF);
-				super.drawString(Minecraft.getMinecraft().fontRenderer, "ÇëÑ¡ÔñÉÏ´«ÄúµÄÍ¼Æ¬", x - 40, y - 70, 0xFFFFFF);
+				super.drawString(Minecraft.getMinecraft().fontRenderer, "æ‚¨å…³é—­äº†çª—å£ï¼Œè¯·é‡è¯•", x - 40, y - 30, 0xFFFFFF);
+				super.drawString(Minecraft.getMinecraft().fontRenderer, "è¯·é€‰æ‹©ä¸Šä¼ æ‚¨çš„å›¾ç‰‡", x - 40, y - 70, 0xFFFFFF);
 				return;
 			case 3:
-				super.drawString(Minecraft.getMinecraft().fontRenderer, "ÄúÒÑ¾­³É¹¦Ñ¡ÔñÍ¼Æ¬", x - 40, y - 70, 0xFFFFFF);
-				super.drawString(Minecraft.getMinecraft().fontRenderer, "ÕıÔÚÉÏ´«£¬ÇëÉÔµÈ", x - 35, y - 30, 0xFFFFFF);
+				super.drawString(Minecraft.getMinecraft().fontRenderer, "æ‚¨å·²ç»æˆåŠŸé€‰æ‹©å›¾ç‰‡", x - 40, y - 70, 0xFFFFFF);
+				super.drawString(Minecraft.getMinecraft().fontRenderer, "æ­£åœ¨ä¸Šä¼ ï¼Œè¯·ç¨ç­‰", x - 35, y - 30, 0xFFFFFF);
 				return;
 			case 4:
-				super.drawString(Minecraft.getMinecraft().fontRenderer, "ÉÏ´«Ê§°Ü", x - 20, y - 70, 0xFFFFFF);
-				super.drawString(Minecraft.getMinecraft().fontRenderer, "Çëµ÷È¡¿Í»§¶ËÔËĞĞÈÕÖ¾", x - 40, y - 30, 0xFFFFFF);
+				super.drawString(Minecraft.getMinecraft().fontRenderer, "ä¸Šä¼ å¤±è´¥", x - 20, y - 70, 0xFFFFFF);
+				super.drawString(Minecraft.getMinecraft().fontRenderer, "è¯·è°ƒå–å®¢æˆ·ç«¯è¿è¡Œæ—¥å¿—", x - 40, y - 30, 0xFFFFFF);
 				return;
 			case 5:
-				super.drawString(Minecraft.getMinecraft().fontRenderer, "ÉÏ´«³É¹¦,Êı¾İ°üÒÑ¾­·¢ËÍµ½·şÎñÆ÷", x - 60, y - 70, 0xFFFFFF);
+				super.drawString(Minecraft.getMinecraft().fontRenderer, "ä¸Šä¼ æˆåŠŸ,æ•°æ®åŒ…å·²ç»å‘é€åˆ°æœåŠ¡å™¨", x - 60, y - 70, 0xFFFFFF);
 				super.drawString(Minecraft.getMinecraft().fontRenderer, url, x - 80, y - 30, 0xFFFFFF);
 				OutPictureChooserBack bac = new OutPictureChooserBack(url);
 				if (!sent) {
@@ -114,14 +114,14 @@ public class UpdateImageGUI extends GuiScreen {
 		int y = super.height / 2;
 		int x = super.width / 2;
 		if (state==0) {
-			this.buttonList.add(new GuiButton(1, x - 100, y + 50, 50, 20, "ÉÏ´«") {
+			this.buttonList.add(new GuiButton(1, x - 100, y + 50, 50, 20, "ä¸Šä¼ ") {
 				@Override
 				public void mouseReleased(int mouseX, int mouseY) {
 					future = ImageUpdateManager.INSTANCE.readyChooseFile();
 					waitchoose = true;
 				}
 			});
-			this.buttonList.add(new GuiButton(1, x + 50, y + 50, 50, 20, "ÍË³ö") {
+			this.buttonList.add(new GuiButton(1, x + 50, y + 50, 50, 20, "é€€å‡º") {
 				@Override
 				public void mouseReleased(int mouseX, int mouseY) {
 					Minecraft.getMinecraft().player.closeScreen();
@@ -129,7 +129,7 @@ public class UpdateImageGUI extends GuiScreen {
 			});
 		}else {
 			if(sent) {
-				this.buttonList.add(new GuiButton(1, x -100, y + 50, 100, 20, "ÍË³ö") {
+				this.buttonList.add(new GuiButton(1, x -100, y + 50, 100, 20, "é€€å‡º") {
 					@Override
 					public void mouseReleased(int mouseX, int mouseY) {
 						Minecraft.getMinecraft().player.closeScreen();

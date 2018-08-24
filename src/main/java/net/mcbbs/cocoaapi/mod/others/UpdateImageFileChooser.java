@@ -11,7 +11,7 @@ public class UpdateImageFileChooser implements Callable<String> {
 	@Override
 	public String call() throws Exception {
 		JFileChooser jFileChooser = new JFileChooser();
-		jFileChooser.setFileFilter(new pngFileFilter());
+		jFileChooser.setFileFilter(pngFileFilter);
 		int i = jFileChooser.showOpenDialog(null);
 		if (i == jFileChooser.APPROVE_OPTION) {
 			String f = jFileChooser.getSelectedFile().getAbsolutePath();
@@ -26,20 +26,21 @@ public class UpdateImageFileChooser implements Callable<String> {
 
 	}
 
-}
+    public static final FileFilter pngFileFilter = new FileFilter() {
 
-class pngFileFilter extends FileFilter {
-	private static final String desc = "ΩˆœﬁÕº∆¨";
+        private static final String desc = "‰ªÖÈôêÂõæÁâá";
 
-	@Override
-	public boolean accept(File f) {
-		return f.getName().endsWith(".png") || f.getName().endsWith("jpg") || f.getName().endsWith("gif")
-				|| f.getName().endsWith("bmp");
-	}
+        @Override
+        public boolean accept(File f) {
+            return f.getName().endsWith(".png") || f.getName().endsWith("jpg") || f.getName().endsWith("gif")
+                    || f.getName().endsWith("bmp");
+        }
 
-	@Override
-	public String getDescription() {
-		return desc;
-	}
+        @Override
+        public String getDescription() {
+            return desc;
+        }
+
+    };
 
 }

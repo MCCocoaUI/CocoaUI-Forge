@@ -45,20 +45,20 @@ public class PictureManager {
 		}
 		if (cache.isEmpty()) {
 			Minecraft.getMinecraft().player
-					.sendMessage(new TextComponentString("¡ìa[CocoaUI]¡ìcÀ´×Ô·şÎñÆ÷µÄËùÓĞÍ¼Æ¬ÒÑ¾­¼ì²éÍê±Ï¡£Òì³£¾ùÒÑĞŞÕı¡£"));
+					.sendMessage(new TextComponentString("Â§a[CocoaUI]Â§cæ¥è‡ªæœåŠ¡å™¨çš„æ‰€æœ‰å›¾ç‰‡å·²ç»æ£€æŸ¥å®Œæ¯•ã€‚å¼‚å¸¸å‡å·²ä¿®æ­£ã€‚"));
 		} else {
 			Minecraft.getMinecraft().player
-					.sendMessage(new TextComponentString("¡ìa[CocoaUI]¡ìcÀ´×Ô·şÎñÆ÷µÄËùÓĞÍ¼Æ¬ÒÑ¾­¼ì²éÍê±Ï¡£ÒÔÏÂÍ¼Æ¬Òì³££º"));
+					.sendMessage(new TextComponentString("Â§a[CocoaUI]Â§cæ¥è‡ªæœåŠ¡å™¨çš„æ‰€æœ‰å›¾ç‰‡å·²ç»æ£€æŸ¥å®Œæ¯•ã€‚ä»¥ä¸‹å›¾ç‰‡å¼‚å¸¸ï¼š"));
 			for (Entry<String, Map<String, Integer>> entry : cache.entrySet()) {
 				StringBuilder builder = new StringBuilder();
-				builder.append("¡ìa[CocoaUI]¡ìc²å¼ş ¡ìa").append(entry.getKey()).append(" ¡ìc×¢²áµÄÍ¼Æ¬:");
+				builder.append("Â§a[CocoaUI]Â§cæ’ä»¶ Â§a").append(entry.getKey()).append(" Â§cæ³¨å†Œçš„å›¾ç‰‡:");
 				for (Entry<String, Integer> err : entry.getValue().entrySet()) {
 					builder.append(err.getKey());
 					builder.append(" ,");
 				}
 				Minecraft.getMinecraft().player.sendMessage(new TextComponentString(builder.toString()));
 			}
-			Minecraft.getMinecraft().player.sendMessage(new TextComponentString("ÎŞ·¨Õı³£¼ÓÔØ£¬¿ÉÄÜ»áÓ°Ïìµ½ÄúµÄÌåÑé¡£Çë¼ì²éÍøÂç»òÁªÏµ·şÎñÆ÷¹ÜÀíÔ±."));
+			Minecraft.getMinecraft().player.sendMessage(new TextComponentString("æ— æ³•æ­£å¸¸åŠ è½½ï¼Œå¯èƒ½ä¼šå½±å“åˆ°æ‚¨çš„ä½“éªŒã€‚è¯·æ£€æŸ¥ç½‘ç»œæˆ–è”ç³»æœåŠ¡å™¨ç®¡ç†å‘˜."));
 
 		}
 	}
@@ -97,14 +97,14 @@ public class PictureManager {
 		if (this.operaters.isEmpty()) {
 			if (this.firstLoad) {
 				this.firstLoad = false;
-				System.out.println("[CocoaUI]²å¼şËùÓĞÍ¼Æ¬ÒÑ¾­¼ÓÔØÍê³É");
+				System.out.println("[CocoaUI]æ’ä»¶æ‰€æœ‰å›¾ç‰‡å·²ç»åŠ è½½å®Œæˆ");
 				return;
 			}
 			return;
 		}
 		if (timer >= 30) {
 			if (!this.isFinish()) {
-				System.out.println("ÒÑ¾­¼ÓÔØ(" + this.loaded + "/" + (this.loaded + this.operaters.size() + ")"));
+				System.out.println("å·²ç»åŠ è½½(" + this.loaded + "/" + (this.loaded + this.operaters.size() + ")"));
 				this.timer = 0;
 			}
 		}
@@ -154,14 +154,14 @@ public class PictureManager {
 	}
 
 	public void startCheck() {
-		System.out.println("[CocoaUI]¿ªÊ¼¼ì²éÍ¼Æ¬");
+		System.out.println("[CocoaUI]å¼€å§‹æ£€æŸ¥å›¾ç‰‡");
 		isloaded = false;
 		firstLoad = true;
 		this.finish.clear();
 		this.operaters.clear();
 		this.timer = 0;
 		for (PluginPicture picture : this.pms.values()) {
-			System.out.println("[CocoaUI]¿ªÊ¼¼ì²é²å¼ş£º" + picture.getpluginName());
+			System.out.println("[CocoaUI]å¼€å§‹æ£€æŸ¥æ’ä»¶ï¼š" + picture.getpluginName());
 			picture.startCheckPictures();
 		}
 		this.checking = true;
