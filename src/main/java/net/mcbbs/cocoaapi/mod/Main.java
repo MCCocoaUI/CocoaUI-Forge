@@ -1,8 +1,7 @@
 package net.mcbbs.cocoaapi.mod;
-
-import net.mcbbs.cocoaapi.mod.pictures.PictureManager;
 import net.mcbbs.cocoaapi.mod.pluginmessage.PluginMessageManager;
 import net.mcbbs.cocoaapi.mod.proxy.CommonProxy;
+import net.mcbbs.cocoaapi.mod.resource.ResourcesManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.init.Blocks;
 import net.minecraftforge.fml.common.Mod;
@@ -23,7 +22,7 @@ public class Main {
 	public static final String VERSION = "1.0";
 
 	private static PluginMessageManager manager = new PluginMessageManager();
-	private static PictureManager picmanager = new PictureManager();
+	private static ResourcesManager resourcesManager = new ResourcesManager();
 	private static Logger logger;
 
 	@SidedProxy(clientSide = "net.mcbbs.cocoaapi.mod.proxy.ClientProxy", serverSide = "net.mcbbs.cocoaapi.mod.proxy.CommonProxy")
@@ -48,7 +47,8 @@ public class Main {
 		return manager;
 	}
 
-	public static PictureManager getPictureManager() {
-		return Main.picmanager;
+	public static ResourcesManager getResourcesManager() {
+		return Main.resourcesManager;
 	}
+
 }

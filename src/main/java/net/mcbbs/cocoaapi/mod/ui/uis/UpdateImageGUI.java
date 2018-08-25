@@ -6,7 +6,7 @@ import java.util.concurrent.Future;
 
 import net.mcbbs.cocoaapi.mod.Main;
 import net.mcbbs.cocoaapi.mod.others.ImageUpdateManager;
-import net.mcbbs.cocoaapi.mod.pluginmessage.packages.OutPictureChooserBack;
+import net.mcbbs.cocoaapi.mod.pluginmessage.packages.OutResourceChooserBack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -89,7 +89,7 @@ public class UpdateImageGUI extends GuiScreen {
 			case 5:
 				super.drawString(Minecraft.getMinecraft().fontRenderer, "上传成功,数据包已经发送到服务器", x - 60, y - 70, 0xFFFFFF);
 				super.drawString(Minecraft.getMinecraft().fontRenderer, url, x - 80, y - 30, 0xFFFFFF);
-				OutPictureChooserBack bac = new OutPictureChooserBack(url);
+				OutResourceChooserBack bac = new OutResourceChooserBack(url);
 				if (!sent) {
 					Main.getPluginMessageManager().sendPackage(bac);
 					sent = true;

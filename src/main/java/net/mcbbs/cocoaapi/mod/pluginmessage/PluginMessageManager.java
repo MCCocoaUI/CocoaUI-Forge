@@ -13,10 +13,10 @@ import io.netty.buffer.Unpooled;
 import net.mcbbs.cocoaapi.mod.pluginmessage.event.PackageListener;
 import net.mcbbs.cocoaapi.mod.pluginmessage.event.PackageReceiveEvent;
 import net.mcbbs.cocoaapi.mod.pluginmessage.event.PackageSendEvent;
-import net.mcbbs.cocoaapi.mod.pluginmessage.packages.InOpenPictureChooser;
-import net.mcbbs.cocoaapi.mod.pluginmessage.packages.InPictureUpdate;
-import net.mcbbs.cocoaapi.mod.pluginmessage.packages.InPictureUpdateSent;
-import net.mcbbs.cocoaapi.mod.pluginmessage.packages.InSinglePictureUpdate;
+import net.mcbbs.cocoaapi.mod.pluginmessage.packages.InOpenResourceChooser;
+import net.mcbbs.cocoaapi.mod.pluginmessage.packages.InResourceUpdate;
+import net.mcbbs.cocoaapi.mod.pluginmessage.packages.InPictureResourceSent;
+import net.mcbbs.cocoaapi.mod.pluginmessage.packages.InSingleResourceUpdate;
 import net.mcbbs.cocoaapi.mod.pluginmessage.packages.InVerfiyPackage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.PacketBuffer;
@@ -92,10 +92,10 @@ public class PluginMessageManager {
 
 	private void init() {
 		this.registerPackage(1, InVerfiyPackage.class);
-		this.registerPackage(2, InPictureUpdate.class);
-		this.registerPackage(3, InSinglePictureUpdate.class);
-		this.registerPackage(4, InPictureUpdateSent.class);
-		this.registerPackage(5, InOpenPictureChooser.class);
+		this.registerPackage(2, InResourceUpdate.class);
+		this.registerPackage(3, InSingleResourceUpdate.class);
+		this.registerPackage(4, InPictureResourceSent.class);
+		this.registerPackage(5, InOpenResourceChooser.class);
 	}
 
 }

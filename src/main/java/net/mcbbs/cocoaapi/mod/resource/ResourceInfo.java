@@ -1,7 +1,7 @@
-package net.mcbbs.cocoaapi.mod.pictures;
+package net.mcbbs.cocoaapi.mod.resource;
 
-public class PictureInfo {
-	public PictureInfo(String url, String md5, int width, int height,PictureName name) {
+public class ResourceInfo {
+	public ResourceInfo(String url, String md5, int width, int height,ResourceName name) {
 		super();
 		this.url = url;
 		this.md5 = md5;
@@ -13,6 +13,6 @@ public class PictureInfo {
 	String md5;
 	int width;
 	int height;
-	PictureName name;
+	ResourceName name;
 	boolean force;
 }

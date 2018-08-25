@@ -2,10 +2,10 @@ package net.mcbbs.cocoaapi.mod.pluginmessage.packages;
 
 import net.mcbbs.cocoaapi.mod.pluginmessage.AbstractInPackage;
 
-public class InPictureUpdateSent extends AbstractInPackage {
+public class InPictureResourceSent extends AbstractInPackage {
 	private static final int ID = 4;
 
-	public InPictureUpdateSent(byte[] data) {
+	public InPictureResourceSent(byte[] data) {
 		super(data, ID);
 	}
 

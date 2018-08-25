@@ -6,11 +6,11 @@ import com.google.gson.Gson;
 
 import net.mcbbs.cocoaapi.mod.pluginmessage.AbstractInPackage;
 
-public class InPictureUpdate extends AbstractInPackage {
+public class InResourceUpdate extends AbstractInPackage {
 	public static final int ID = 2;
 	private Map<String, Object> data;
 
-	public InPictureUpdate(byte[] data) {
+	public InResourceUpdate(byte[] data) {
 		super(data, ID);
 		dealData();
 	}

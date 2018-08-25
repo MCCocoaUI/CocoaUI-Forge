@@ -1,4 +1,4 @@
-package net.mcbbs.cocoaapi.mod.pictures;
+package net.mcbbs.cocoaapi.mod.resource;
 
 import java.awt.image.BufferedImage;
 import java.io.BufferedOutputStream;
@@ -20,32 +20,36 @@ import com.google.common.io.ByteStreams;
 
 import net.mcbbs.cocoaapi.mod.utils.MD5Tool;
 
-public class PictureOperater implements Callable<PictureInfo> {
+public class ResourceOperater implements Callable<ResourceInfo> {
 	private String url;
 	private byte[] bytes;
 	private int width;
 	private int height;
 	private String md5;
-	private PictureName name;
+	private ResourceName name;
 	private File file;
 	private boolean download;
+	private boolean isPicture;
 
-	public PictureOperater(String url, PictureName name, File file, boolean download) {
+	public ResourceOperater(String url, ResourceName name, File file, boolean download, boolean isPicture) {
 		this.url = url;
 		this.name = name;
 		this.file = file;
 		this.download = download;
+		this.isPicture = isPicture;
 	}
 
 	@Override
-	public PictureInfo call() throws Exception {
+	public ResourceInfo call() throws Exception {
 		if (!this.loadBytes()) {
-			return new PictureInfo(null, null, -1, -1, this.name);
+			return new ResourceInfo(null, null, -1, -1, this.name);
 		}
 		this.md5 = MD5Tool.md5(this.bytes);
-		this.file = Picture.getPictureFile(this.name.pluginName, md5);
-		if (!this.loadSize()) {
-			return new PictureInfo(null, null, -1, -1, this.name);
+		this.file = Resource.getResourceFile(this.name.pluginName, md5);
+		if (isPicture) {
+			if (!this.loadSize()) {
+				return new ResourceInfo(null, null, -1, -1, this.name);
+			}
 		}
 		if (!file.exists()) {
 			this.saveBytes();
@@ -55,8 +59,8 @@ public class PictureOperater implements Callable<PictureInfo> {
 		return this.getInfo();
 	}
 
-	private PictureInfo getInfo() {
-		PictureInfo info = new PictureInfo(this.url, this.md5, this.width, this.height, name);
+	private ResourceInfo getInfo() {
+		ResourceInfo info = new ResourceInfo(this.url, this.md5, this.width, this.height, name);
 		info.force = this.download;
 		return info;
 	}
@@ -118,7 +122,6 @@ public class PictureOperater implements Callable<PictureInfo> {
 	}
 
 	private void saveBytes() {
-		System.out.println(this.file);
 		this.createfile();
 		try (BufferedOutputStream buff = new BufferedOutputStream(new FileOutputStream(this.file))) {
 			buff.write(this.bytes, 0, this.bytes.length);

@@ -2,14 +2,14 @@ package net.mcbbs.cocoaapi.mod.pluginmessage.packages;
 
 import net.mcbbs.cocoaapi.mod.pluginmessage.AbstractInPackage;
 
-public class InSinglePictureUpdate extends AbstractInPackage {
+public class InSingleResourceUpdate extends AbstractInPackage {
 	private static final int ID = 3;
 	private String url;
 	private String name;
 	private String pluginName;
 	private int state;
 
-	public InSinglePictureUpdate(byte[] data) {
+	public InSingleResourceUpdate(byte[] data) {
 		super(data, ID);
 		readData();
 	}

@@ -1,4 +1,4 @@
-package net.mcbbs.cocoaapi.mod.pictures;
+package net.mcbbs.cocoaapi.mod.resource;
 
 import java.awt.image.BufferedImage;
 import java.io.DataInputStream;
@@ -19,12 +19,14 @@ import javax.imageio.ImageIO;
 import net.mcbbs.cocoaapi.mod.Main;
 import net.mcbbs.cocoaapi.mod.utils.MD5Tool;
 
-public class Picture {
-	
-	public static final File PARENTFILE = new File("CocoaUI/Pictures");
-	public static File getPictureFile(String pluginName,String md5) {
-		return new File(Picture.PARENTFILE + "/" + pluginName + "/" + md5);
+public class Resource {
+
+	public static final File PARENTFILE = new File("CocoaUI/Resources");
+
+	public static File getResourceFile(String pluginName, String md5) {
+		return new File(Resource.PARENTFILE + "/" + pluginName + "/" + md5);
 	}
+
 	private String url;
 	private String md5;
 
@@ -34,9 +36,10 @@ public class Picture {
 	private int height;
 	private boolean loaded;
 	private String extension;
+	private ResourceType type;
 	private boolean updateURLing = false;
 
-	public Picture(String url, String pluginName, String name, String md5) {
+	public Resource(String url, String pluginName, String name, String md5) {
 		this.url = url;
 		this.pluginName = pluginName;
 		this.name = name;
@@ -44,11 +47,12 @@ public class Picture {
 		this.loadExtension();
 	}
 
-	public Picture(Map<String, String> value, String pluginName) {
+	public Resource(Map<String, String> value, String pluginName) {
 		this.pluginName = pluginName;
 		this.md5 = value.get("md5");
 		this.name = value.get("name");
 		this.url = value.get("url");
+		this.type = ResourceType.toResourceType(value.get("type"));
 		this.loadExtension();
 	}
 
@@ -84,8 +88,8 @@ public class Picture {
 		return height;
 	}
 
-	public File getPictureFile() {
-		return Picture.getPictureFile(pluginName, md5);
+	public File getResourceFile() {
+		return Resource.getResourceFile(pluginName, md5);
 	}
 
 	public void setUrl(String url) {
@@ -96,16 +100,18 @@ public class Picture {
 	}
 
 	public void remove() {
-		this.getPictureFile().delete();
+		this.getResourceFile().delete();
 	}
 
 	public boolean isLoaded() {
 		return this.loaded;
 	}
+
 	public boolean isExists() {
-		return this.getPictureFile().exists();
+		return this.getResourceFile().exists();
 	}
-	public void setPictureInfo(PictureInfo info) {
+
+	public void setResourceInfo(ResourceInfo info) {
 		this.width = info.width;
 		this.height = info.height;
 		if (updateURLing) {
@@ -115,7 +121,7 @@ public class Picture {
 		}
 
 		if (this.width == -1) {
-			Main.getPictureManager().getPluginPicture(this.pluginName).addErr(name);
+			Main.getResourcesManager().getPluginResource(this.pluginName).addErr(name);
 			return;
 		}
 		if (!this.md5.equalsIgnoreCase(info.md5)) {
@@ -127,7 +133,11 @@ public class Picture {
 	}
 
 	public void forceDownload() {
-		Main.getPictureManager().setOperater(this.name, this.pluginName, true);
+		Main.getResourcesManager().setOperater(this.name, this.pluginName, true);
+	}
+
+	public ResourceType getType() {
+		return this.type;
 	}
 
 }

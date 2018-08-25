@@ -28,8 +28,7 @@ public class ForgeListener {
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
 	public void onTick(TickEvent event) {
-	
-		Main.getPictureManager().tick();
+		Main.getResourcesManager().tick();
 	}
 
 }

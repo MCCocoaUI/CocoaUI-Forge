@@ -1,19 +1,19 @@
-package net.mcbbs.cocoaapi.mod.pictures;
+package net.mcbbs.cocoaapi.mod.resource;
 
-public class PictureName {
+public class ResourceName {
 	String name;
 	String pluginName;
 	String fullName;
 
-	public PictureName(String name) {
+	public ResourceName(String name) {
 		this.name = this.getPicName(name);
 		this.pluginName = this.getPluginName(name);
 	}
 
-	public PictureName(String name, String pluginName) {
+	public ResourceName(String name, String pluginName) {
 		this.name = name;
 		this.pluginName = pluginName;
-		this.fullName = this.getPictureName(pluginName, name);
+		this.fullName = this.getResourceName(pluginName, name);
 	}
 
 	private String getPluginName(String name) {
@@ -24,7 +24,7 @@ public class PictureName {
 		return name.split("\\.")[0];
 	}
 
-	private String getPictureName(String pluginname, String name) {
+	private String getResourceName(String pluginname, String name) {
 		return pluginname + "." + name;
 	}
 }

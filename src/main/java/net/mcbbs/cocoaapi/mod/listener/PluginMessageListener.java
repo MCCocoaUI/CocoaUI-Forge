@@ -5,13 +5,13 @@ import java.io.IOException;
 
 import net.mcbbs.cocoaapi.mod.Main;
 import net.mcbbs.cocoaapi.mod.others.ImageUpdateManager;
-import net.mcbbs.cocoaapi.mod.pictures.PluginPicture;
 import net.mcbbs.cocoaapi.mod.pluginmessage.event.PackageListener;
 import net.mcbbs.cocoaapi.mod.pluginmessage.event.PackageReceiveEvent;
 import net.mcbbs.cocoaapi.mod.pluginmessage.event.PackageSendEvent;
-import net.mcbbs.cocoaapi.mod.pluginmessage.packages.InPictureUpdate;
-import net.mcbbs.cocoaapi.mod.pluginmessage.packages.InSinglePictureUpdate;
+import net.mcbbs.cocoaapi.mod.pluginmessage.packages.InResourceUpdate;
+import net.mcbbs.cocoaapi.mod.pluginmessage.packages.InSingleResourceUpdate;
 import net.mcbbs.cocoaapi.mod.pluginmessage.packages.OutVerfiyPackage;
+import net.mcbbs.cocoaapi.mod.resource.PluginResourceManager;
 import net.mcbbs.cocoaapi.mod.ui.uis.UpdateImageGUI;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
@@ -29,15 +29,15 @@ public class PluginMessageListener extends PackageListener {
 			Main.getPluginMessageManager().sendPackage(new OutVerfiyPackage());
 			return;
 		case 2:
-			Main.getPictureManager().onInPictrureUpdate((InPictureUpdate) e.getPackage());
+			Main.getResourcesManager().onInResourceUpdate((InResourceUpdate) e.getPackage());
 			return;
 		case 3:
-			InSinglePictureUpdate pck = (InSinglePictureUpdate) e.getPackage();
-			PluginPicture plc = Main.getPictureManager().getPluginPicture(pck.getPluginName());
+			InSingleResourceUpdate pck = (InSingleResourceUpdate) e.getPackage();
+			PluginResourceManager plc = Main.getResourcesManager().getPluginResource(pck.getPluginName());
 			plc.setURL(pck.getName(), pck.getUrl());
 			return;
 		case 4:
-			Main.getPictureManager().startCheck();
+			Main.getResourcesManager().startCheck();
 			return;
 		case 5:
 			EntityPlayer player = Minecraft.getMinecraft().player;

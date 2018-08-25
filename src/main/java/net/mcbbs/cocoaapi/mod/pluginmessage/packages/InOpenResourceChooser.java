@@ -2,10 +2,10 @@ package net.mcbbs.cocoaapi.mod.pluginmessage.packages;
 
 import net.mcbbs.cocoaapi.mod.pluginmessage.AbstractInPackage;
 
-public class InOpenPictureChooser extends AbstractInPackage {
+public class InOpenResourceChooser extends AbstractInPackage {
 	private static final int ID = 5;
 
-	public InOpenPictureChooser(byte[] data) {
+	public InOpenResourceChooser(byte[] data) {
 		super(data, 5);
 
 	}
