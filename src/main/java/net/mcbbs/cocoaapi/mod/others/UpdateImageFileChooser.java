@@ -42,9 +42,4 @@ public class UpdateImageFileChooser implements Callable<String> {
         }
 
     };
-
-<<<<<<< Upstream, based on branch 'master' of https://github.com/MCCocoaUI/CocoaUI-Forge
 }
-=======
-}
->>>>>>> 54f3f08 1
