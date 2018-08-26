@@ -9,6 +9,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.fml.common.network.FMLNetworkEvent.ClientDisconnectionFromServerEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -29,6 +30,11 @@ public class ForgeListener {
 	@SubscribeEvent
 	public void onTick(TickEvent event) {
 		Main.getResourcesManager().tick();
+	}
+	@SideOnly(Side.CLIENT)
+	@SubscribeEvent
+	public void onDisconnect(ClientDisconnectionFromServerEvent event) {
+		Main.getResourcesManager().reset();
 	}
 
 }

@@ -34,11 +34,21 @@ public class ResourcesManager {
 		this.pluginResourcesManagers.put(name, new PluginResourceManager(pack.getData()));
 	}
 
+	public PluginResourceManager registerLocalResourceManager(String name) {
+		if (this.pluginResourcesManagers.containsKey(name)) {
+			return null;
+		}
+		PluginResourceManager result = new PluginResourceManager(name);
+		this.pluginResourcesManagers.put(name, result);
+		return result;
+
+	}
+
 	public PluginResourceManager getPluginResource(String name) {
 		return this.pluginResourcesManagers.get(name);
 	}
 
-	public void finishedSetCheck() {
+	private void finishedSetCheck() {
 		Map<String, Map<String, Integer>> cache = Maps.newHashMap();
 		for (PluginResourceManager pic : this.pluginResourcesManagers.values()) {
 			cache.put(pic.getPluginName(), pic.getErrors());
@@ -62,6 +72,12 @@ public class ResourcesManager {
 		}
 	}
 
+	/**
+	 * 通过resourceName实例来获取资源，找不到时返回null
+	 * 
+	 * @param name 名称
+	 * @return 资源
+	 */
 	public Resource getResource(ResourceName name) {
 		String pluginName = name.pluginName;
 		String picName = name.name;
@@ -74,11 +90,23 @@ public class ResourcesManager {
 		return null;
 	}
 
+	/**
+	 * 通过识别名来获取资源，找不到时返回null
+	 * 
+	 * @param nam 识别名
+	 * @return 资源
+	 */
 	public Resource getResource(String nam) {
 		ResourceName name = new ResourceName(nam);
 		return this.getResource(name);
 	}
 
+	/**
+	 * 通过识别名获取资源的路径，找不到适合返回null，资源未加载完成时返回null
+	 * 
+	 * @param name 识别名
+	 * @return 资源地址
+	 */
 	public File getResourceFile(String name) {
 		Resource pic = this.getResource(name);
 		if (pic == null)
@@ -89,10 +117,20 @@ public class ResourcesManager {
 		return pic.getResourceFile();
 	}
 
+	/**
+	 * 获取已经加载的资源数量
+	 * 
+	 * @return 资源数量
+	 */
 	public int getLoadedCount() {
 		return this.loadedCount;
 	}
 
+	/**
+	 * 获取需要加载的资源总数
+	 * 
+	 * @return 资源数量
+	 */
 	public int getTotalLoaderCount() {
 		return this.loadedCount + this.resourceOperaters.size();
 	}
@@ -134,7 +172,7 @@ public class ResourcesManager {
 			this.resourceOperaters.remove(pl);
 		}
 	}
-
+	
 	private void updateInfo(ResourceName key, ResourceInfo ResourceInfo) {
 		Resource pic = this.getResource(key);
 		if (pic != null) {
@@ -145,8 +183,8 @@ public class ResourcesManager {
 	private boolean isfinishedSet() {
 		return !this.firstLoad;
 	}
-
-	public void setOperater(String name, String pluginName, boolean download) {
+	
+	protected void setOperater(String name, String pluginName, boolean download) {
 		PluginResourceManager picma = this.getPluginResource(pluginName);
 		Resource pic;
 		if (picma != null) {
@@ -160,7 +198,9 @@ public class ResourcesManager {
 				new ResourceName(name, pluginName), f, download, pic.getType().equals(ResourceType.PICTURE))));
 
 	}
-
+	/**
+	 * 开始进入服务器后，第一次检查资源
+	 */
 	public void startCheck() {
 		System.out.println("[CocoaUI]开始检查资源");
 		isloaded = false;
@@ -174,5 +214,9 @@ public class ResourcesManager {
 		}
 		this.checking = true;
 
+	}
+
+	public void reset() {
+		
 	}
 }
