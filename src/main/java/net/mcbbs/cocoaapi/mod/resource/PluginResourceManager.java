@@ -124,4 +124,20 @@ public class PluginResourceManager {
 		}
 	}
 
+	public Set<String> getPicSet() {
+		return picSet;
+	}
+
+	public Set<String> getFontSet() {
+		return fontSet;
+	}
+
+	public Set<String> getVideoSet() {
+		return videoSet;
+	}
+
+	public Set<String> getMusicset() {
+		return musicset;
+	}
+
 }

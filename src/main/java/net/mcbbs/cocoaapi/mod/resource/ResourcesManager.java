@@ -19,15 +19,15 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 
 public class ResourcesManager {
-		private ExecutorService threadPool = Executors.newFixedThreadPool(4);
-		private boolean isloaded = false;
+	private ExecutorService threadPool = Executors.newFixedThreadPool(4);
+	private boolean isloaded = false;
 	private boolean firstLoad = true;
 	private int counter;
 	private Map<ResourceName, Future<ResourceInfo>> resourceOperaters = Maps.newConcurrentMap();
 	private Set<ResourceName> finishedSet = Sets.newHashSet();
 	public Map<String, PluginResourceManager> pluginResourcesManagers = Maps.newConcurrentMap();
 	private int loadedCount;
-		private boolean checking = false;
+	private boolean checking = false;
 
 	public void onInResourceUpdate(InResourceUpdate pack) {
 		String name = (String) pack.getData().get("pluginName");
@@ -88,12 +88,15 @@ public class ResourcesManager {
 
 		return pic.getResourceFile();
 	}
+
 	public int getLoadedCount() {
 		return this.loadedCount;
 	}
+
 	public int getTotalLoaderCount() {
-		return this.loadedCount+this.resourceOperaters.size();
+		return this.loadedCount + this.resourceOperaters.size();
 	}
+
 	public void tick() {
 		if (!checking) {
 			return;
@@ -153,8 +156,8 @@ public class ResourcesManager {
 		}
 		File f = pic.getResourceFile();
 		String url = pic.getUrl();
-		this.resourceOperaters.put(new ResourceName(name, pluginName),
-				this.threadPool.submit(new ResourceOperater(url, new ResourceName(name, pluginName), f, download,pic.getType().equals(ResourceType.PICTURE))));
+		this.resourceOperaters.put(new ResourceName(name, pluginName), this.threadPool.submit(new ResourceOperater(url,
+				new ResourceName(name, pluginName), f, download, pic.getType().equals(ResourceType.PICTURE))));
 
 	}
 
