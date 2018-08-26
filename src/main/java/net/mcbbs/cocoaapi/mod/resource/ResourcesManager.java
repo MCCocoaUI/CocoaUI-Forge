@@ -59,7 +59,6 @@ public class ResourcesManager {
 				Minecraft.getMinecraft().player.sendMessage(new TextComponentString(builder.toString()));
 			}
 			Minecraft.getMinecraft().player.sendMessage(new TextComponentString("无法正常加载，可能会影响到您的体验。请检查网络或联系服务器管理员."));
-
 		}
 	}
 
@@ -89,7 +88,12 @@ public class ResourcesManager {
 
 		return pic.getResourceFile();
 	}
-
+	public int getLoadedCount() {
+		return this.loadedCount;
+	}
+	public int getTotalLoaderCount() {
+		return this.loadedCount+this.resourceOperaters.size();
+	}
 	public void tick() {
 		if (!checking) {
 			return;
@@ -98,13 +102,14 @@ public class ResourcesManager {
 			if (this.firstLoad) {
 				this.firstLoad = false;
 				System.out.println("[CocoaUI]插件所有资源已经加载完成");
+				finishedSetCheck();
 				return;
 			}
 			return;
 		}
 		if (counter >= 30) {
 			if (!this.isfinishedSet()) {
-				System.out.println("已经加载(" + this.loadedCount + "/" + (this.loadedCount + this.resourceOperaters.size() + ")"));
+				System.out.println("已经加载(" + this.loadedCount + "/" + this.getTotalLoaderCount() + ")");
 				this.counter = 0;
 			}
 		}

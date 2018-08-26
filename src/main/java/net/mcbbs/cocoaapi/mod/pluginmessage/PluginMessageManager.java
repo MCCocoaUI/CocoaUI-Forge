@@ -15,7 +15,7 @@ import net.mcbbs.cocoaapi.mod.pluginmessage.event.PackageReceiveEvent;
 import net.mcbbs.cocoaapi.mod.pluginmessage.event.PackageSendEvent;
 import net.mcbbs.cocoaapi.mod.pluginmessage.packages.InOpenResourceChooser;
 import net.mcbbs.cocoaapi.mod.pluginmessage.packages.InResourceUpdate;
-import net.mcbbs.cocoaapi.mod.pluginmessage.packages.InPictureResourceSent;
+import net.mcbbs.cocoaapi.mod.pluginmessage.packages.InResourceSent;
 import net.mcbbs.cocoaapi.mod.pluginmessage.packages.InSingleResourceUpdate;
 import net.mcbbs.cocoaapi.mod.pluginmessage.packages.InVerfiyPackage;
 import net.minecraft.client.Minecraft;
@@ -94,7 +94,7 @@ public class PluginMessageManager {
 		this.registerPackage(1, InVerfiyPackage.class);
 		this.registerPackage(2, InResourceUpdate.class);
 		this.registerPackage(3, InSingleResourceUpdate.class);
-		this.registerPackage(4, InPictureResourceSent.class);
+		this.registerPackage(4, InResourceSent.class);
 		this.registerPackage(5, InOpenResourceChooser.class);
 	}
 
